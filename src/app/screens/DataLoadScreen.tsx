@@ -7,8 +7,10 @@ interface DataLoadScreenProps {
   loadGameData(arg0: HltbGrouveeGame[]): void;
 }
 
-const DataLoadScreen: FunctionComponent<DataLoadScreenProps> = ({ userDataList, loadGameData }) => {
-  return <Stack>{JSON.stringify(userDataList, null, 2)}</Stack>;
-};
+const DataLoadScreen: FunctionComponent<DataLoadScreenProps> = ({ userDataList, loadGameData }) => (
+  <Stack>
+    <pre>{JSON.stringify(userDataList, null, '\t')}</pre>
+  </Stack>
+);
 
 export default DataLoadScreen;

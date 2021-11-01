@@ -50,7 +50,7 @@ const App = () => {
     setLoadingUserData(true);
     setLoadedGrouveeFileName(false);
 
-    const grouveeData = await parseCsvFileContent(content);
+    const grouveeData = parseCsvFileContent(content);
     const gameData = await createGameData(grouveeData);
 
     const userId = 'Ceilort'; // TODO: add user ID later
@@ -70,8 +70,8 @@ const App = () => {
         hidden={!loadingUserData}
         dialogContentProps={{
           type: DialogType.largeHeader,
-          title: 'Load Grouvee Data',
-          subText: 'Merging your Grouvee games with data fetched from HLTB...',
+          title: 'Loading...',
+          subText: 'Your Grouvee games are merged with data fetched from HLTB.',
         }}
       >
         <DialogContent>
