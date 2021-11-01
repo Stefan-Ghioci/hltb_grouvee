@@ -1,3 +1,1 @@
-export interface HltbGrouveeGame{
-    
-}
+export interface HltbGrouveeGame {}

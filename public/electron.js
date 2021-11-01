@@ -10,7 +10,7 @@ function createWindow() {
   mainWindow = new BrowserWindow({
     minWidth: 1024,
     minHeight: 640,
-    webPreferences: { webSecurity: false, nodeIntegration: true },
+    webPreferences: { webSecurity: false, contextIsolation: false, nodeIntegration: true },
     frame: false,
   });
   mainWindow.menuBarVisible = false;
