@@ -24,7 +24,7 @@
     "csv-parse": "^4.16.3",
     "electron-is-dev": "^2.0.0",
     "electron-store": "^8.0.1",
-    "howlongtobeat": "^1.4.1",
+    "howlongtobeat": "^1.5.0",
     "normalize.css": "^8.0.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -34,6 +34,7 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
+    "postinstall": "patch-package",
     "react-start": "react-scripts start",
     "react-build": "react-scripts build",
     "react-test": "react-scripts test --env=jsdom",
@@ -65,6 +66,8 @@
     "concurrently": "^6.2.1",
     "electron": "^14.0.0",
     "electron-builder": "^22.11.7",
+    "patch-package": "^6.4.7",
+    "postinstall-postinstall": "^2.1.0",
     "wait-on": "^6.0.0"
   }
 }

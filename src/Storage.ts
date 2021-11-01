@@ -1,13 +1,7 @@
-import { Schema } from 'electron-store';
 import { HltbGrouveeGame } from './GameData';
 const Store = window.require('electron-store');
 
-interface StoreData {
-  name: string;
-}
-
-const schema: Schema<StoreData> = { name: { type: 'string' } };
-const store = new Store({ schema });
+const store = new Store();
 
 export const loadUserDataList = (): { [id: string]: HltbGrouveeGame[] } =>
   store.has('userDataList') ? JSON.parse(store.get('userDataList')) : {};

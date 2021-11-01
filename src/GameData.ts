@@ -1,11 +1,13 @@
 import parse from 'csv-parse/lib/sync';
+import { HowLongToBeatEntry, HowLongToBeatService } from 'howlongtobeat';
+
+const hltbService = new HowLongToBeatService();
+hltbService.search('Hello');
 
 export interface HltbGrouveeGame {
   grouvee: GrouveeGame;
-  hltb: HltbGame[];
+  hltb: HowLongToBeatEntry[];
 }
-
-export interface HltbGame {}
 
 export interface GrouveeGame {
   id: number;
@@ -45,7 +47,11 @@ export const parseCsvFileContent = (content: string): GrouveeGame[] => {
 };
 
 export const createGameData = async (grouveeData: GrouveeGame[]): Promise<HltbGrouveeGame[]> => {
-  return grouveeData.map((grouveeGame) => {
-    return { grouvee: grouveeGame, hltb: [] };
-  });
+  const hltbGrouveeGames: HltbGrouveeGame[] = [];
+  for (const grouveeGame of grouveeData)
+    hltbGrouveeGames.push({
+      grouvee: grouveeGame,
+      hltb: await hltbService.search(grouveeGame.name),
+    });
+  return hltbGrouveeGames;
 };
