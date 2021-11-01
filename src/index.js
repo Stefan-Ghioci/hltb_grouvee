@@ -1,9 +1,12 @@
+import { initializeIcons } from '@fluentui/react/lib/Icons';
+import 'normalize.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './app';
-import reportWebVitals from './reportWebVitals';
-import 'normalize.css';
 import './index.css';
+import reportWebVitals from './reportWebVitals';
+
+initializeIcons();
 
 ReactDOM.render(
   <React.StrictMode>
