@@ -130,10 +130,14 @@ const App = () => {
             tokens={{ childrenGap: 's1' }}
           />
           <Stack horizontal tokens={{ childrenGap: 'm' }}>
-            <PrimaryButton
-              text="Load Grouvee Data"
-              onClick={() => setOpenLoadUserDataDialog(true)}
-            />
+            {currentGameData ? (
+              <DefaultButton text="Back" onClick={() => setCurrentGameData(null)} />
+            ) : (
+              <PrimaryButton
+                text="Load Grouvee Data"
+                onClick={() => setOpenLoadUserDataDialog(true)}
+              />
+            )}
             <DefaultButton text="Exit" onClick={window.close} />
           </Stack>
         </Stack>
@@ -141,10 +145,7 @@ const App = () => {
         {currentGameData ? (
           <GamesScreen gameData={currentGameData} />
         ) : (
-          <DataLoadScreen
-            userDataList={userDataList}
-            loadGameData={(gameData) => setCurrentGameData(gameData)}
-          />
+          <DataLoadScreen userDataList={userDataList} loadGameData={setCurrentGameData} />
         )}
       </Stack>
     </>
