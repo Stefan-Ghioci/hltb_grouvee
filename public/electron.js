@@ -11,9 +11,7 @@ function createWindow() {
     minWidth: 1024,
     minHeight: 640,
     webPreferences: { webSecurity: false, contextIsolation: false, nodeIntegration: true },
-    frame: false,
   });
-  mainWindow.menuBarVisible = false;
   mainWindow.loadURL(
     isDev ? 'http://localhost:3000' : `file://${path.join(__dirname, '../build/index.html')}`
   );

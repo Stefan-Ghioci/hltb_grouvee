@@ -4,7 +4,6 @@ import {
   DialogContent,
   DialogFooter,
   DialogType,
-  getTheme,
   PrimaryButton,
   ProgressIndicator,
   Separator,
@@ -13,23 +12,11 @@ import {
 } from '@fluentui/react';
 import { useEffect, useState } from 'react';
 import { useFilePicker } from 'use-file-picker';
-import { createGameData, HltbGrouveeGame, parseCsvFileContent } from '../GameData';
-import { addUserData, loadUserDataList } from '../Storage';
-import { DataLoadScreen, GamesScreen } from './screens';
-import Steps from './Steps';
-
-const theme = getTheme();
+import { createGameData, parseCsvFileContent } from './GameData';
+import { addUserData, loadUserData } from './Storage';
 
 const App = () => {
-  const [currentGameData, setCurrentGameData] = useState<HltbGrouveeGame[] | null>(null);
-  const [userDataList, setUserDataList] = useState<{ [id: string]: HltbGrouveeGame[] }>(
-    loadUserDataList()
-  );
-
-  const [windowOnFocus, setWindowOnFocus] = useState(true);
-
-  window.onfocus = () => setWindowOnFocus(true);
-  window.onblur = () => setWindowOnFocus(false);
+  const userData = loadUserData();
 
   const [openLoadUserDataDialog, setOpenLoadUserDataDialog] = useState(false);
   const [loadedGrouveeFileName, setLoadedGrouveeFileName] = useState(false);
@@ -50,17 +37,7 @@ const App = () => {
     setLoadingUserData(true);
     setLoadedGrouveeFileName(false);
 
-    const grouveeData = parseCsvFileContent(content);
-    const gameData = await createGameData(grouveeData);
-
-    const userId = 'Ceilort'; // TODO: add user ID later
-
-    addUserData(userId, gameData);
-
-    const newUserDataList = { ...userDataList };
-    newUserDataList[userId] = gameData;
-    setUserDataList(newUserDataList);
-
+    addUserData(await createGameData(parseCsvFileContent(content)));
     setLoadingUserData(false);
   };
 
@@ -96,11 +73,7 @@ const App = () => {
           />
         </DialogContent>
         <DialogFooter>
-          <PrimaryButton
-            text="Continue"
-            disabled={!loadedGrouveeFileName}
-            onClick={handleLoadUserData}
-          />
+          <PrimaryButton text="Continue" disabled={!loadedGrouveeFileName} onClick={handleLoadUserData} />
           <DefaultButton
             onClick={() => {
               setOpenLoadUserDataDialog(false);
@@ -110,43 +83,14 @@ const App = () => {
           />
         </DialogFooter>
       </Dialog>
-      <div
-        className="draggable"
-        style={{
-          height: theme.spacing.l2,
-          backgroundColor: windowOnFocus
-            ? theme.palette.neutralPrimaryAlt
-            : theme.palette.neutralSecondaryAlt,
-          boxShadow: theme.effects.elevation4,
-        }}
-      />
       <Stack horizontalAlign="stretch" tokens={{ childrenGap: 'm', padding: 'l2' }}>
         <Stack horizontal horizontalAlign="space-between">
-          <Steps
-            currentIndex={+!currentGameData}
-            stepList={['Grouvee', 'HLTB']}
-            horizontal
-            verticalAlign="center"
-            tokens={{ childrenGap: 's1' }}
-          />
           <Stack horizontal tokens={{ childrenGap: 'm' }}>
-            {currentGameData ? (
-              <DefaultButton text="Back" onClick={() => setCurrentGameData(null)} />
-            ) : (
-              <PrimaryButton
-                text="Load Grouvee Data"
-                onClick={() => setOpenLoadUserDataDialog(true)}
-              />
-            )}
-            <DefaultButton text="Exit" onClick={window.close} />
+            <PrimaryButton text="Load Grouvee Data" onClick={() => setOpenLoadUserDataDialog(true)} />
           </Stack>
         </Stack>
         <Separator />
-        {currentGameData ? (
-          <GamesScreen gameData={currentGameData} />
-        ) : (
-          <DataLoadScreen userDataList={userDataList} loadGameData={setCurrentGameData} />
-        )}
+        <pre>{JSON.stringify(userData, null, 2)}</pre>
       </Stack>
     </>
   );

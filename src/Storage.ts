@@ -1,13 +1,11 @@
+import ElectronStore from 'electron-store';
 import { HltbGrouveeGame } from './GameData';
+
 const Store = window.require('electron-store');
 
-const store = new Store();
+const store: ElectronStore = new Store();
+const USER_DATA_STORE_KEY = 'userData';
 
-export const loadUserDataList = (): { [id: string]: HltbGrouveeGame[] } =>
-  store.has('userDataList') ? JSON.parse(store.get('userDataList')) : {};
+export const loadUserData = (): HltbGrouveeGame[] => store.get(USER_DATA_STORE_KEY, []) as HltbGrouveeGame[];
 
-export const addUserData = (user: string, gameData: HltbGrouveeGame[]) => {
-  const userDataList = loadUserDataList();
-  userDataList[user] = gameData;
-  store.set('userDataList', JSON.stringify(userDataList));
-};
+export const addUserData = (gameData: HltbGrouveeGame[]) => store.set(USER_DATA_STORE_KEY, gameData);
