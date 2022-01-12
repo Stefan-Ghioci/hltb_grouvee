@@ -1,18 +1,19 @@
 import {
-  DefaultButton,
-  Dialog,
+  ActivityItem,
+  DefaultButton, Dialog,
   DialogContent,
   DialogFooter,
-  DialogType,
-  PrimaryButton,
+  DialogType, PrimaryButton,
   ProgressIndicator,
   Separator,
   Stack,
-  TextField,
+  TextField
 } from '@fluentui/react';
+import { GameIcon } from '@fluentui/react-icons-mdl2';
 import { useEffect, useState } from 'react';
 import { useFilePicker } from 'use-file-picker';
 import { createGameData, parseCsvFileContent } from './GameData';
+import GameList from './GameList';
 import { addUserData, loadUserData } from './Storage';
 
 const App = () => {
@@ -83,14 +84,25 @@ const App = () => {
           />
         </DialogFooter>
       </Dialog>
-      <Stack horizontalAlign="stretch" tokens={{ childrenGap: 'm', padding: 'l2' }}>
+      <Stack horizontalAlign="stretch" tokens={{ padding: 'l2' }}>
         <Stack horizontal horizontalAlign="space-between">
+          <ActivityItem
+            style={{ alignItems: 'baseline', userSelect: 'none' }}
+            styles={{ activityTypeIcon: { height: 'unset' } }}
+            activityIcon={<GameIcon />}
+            activityDescription={<span>{userData.length} Games</span>}
+          />
           <Stack horizontal tokens={{ childrenGap: 'm' }}>
             <PrimaryButton text="Load Grouvee Data" onClick={() => setOpenLoadUserDataDialog(true)} />
           </Stack>
         </Stack>
         <Separator />
-        <pre>{JSON.stringify(userData, null, 2)}</pre>
+        {/* <Stack horizontalAlign="stretch" tokens={{childrenGap: 'm'}}>
+          {userData.map((game) => (
+            <GameCard game={game} />
+          ))}
+        </Stack> */}
+        <GameList games={userData}/>
       </Stack>
     </>
   );

@@ -18,7 +18,7 @@ export interface GrouveeGame {
   franchises: string[];
   developers: string[];
   publishers: string[];
-  releaseDate: Date;
+  releaseDate: string;
 }
 
 export const parseCsvFileContent = (content: string): GrouveeGame[] => {
@@ -39,7 +39,7 @@ export const parseCsvFileContent = (content: string): GrouveeGame[] => {
       franchises: Object.keys(JSON.parse(row['franchises'])),
       developers: Object.keys(JSON.parse(row['developers'])),
       publishers: Object.keys(JSON.parse(row['publishers'])),
-      releaseDate: new Date(row['release_date']),
+      releaseDate: row['release_date'],
     });
   }
 
