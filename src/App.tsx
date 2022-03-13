@@ -84,7 +84,7 @@ const App = () => {
           />
         </DialogFooter>
       </Dialog>
-      <Stack horizontalAlign="stretch" tokens={{ padding: 'l2' }}>
+      <Stack horizontalAlign="stretch" tokens={{ padding: 'l2' }} style={{height:'100vh'}}>
         <Stack horizontal horizontalAlign="space-between">
           <ActivityItem
             style={{ alignItems: 'baseline', userSelect: 'none' }}
