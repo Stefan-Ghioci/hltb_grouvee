@@ -48,10 +48,14 @@ export const parseCsvFileContent = (content: string): GrouveeGame[] => {
 
 export const createGameData = async (grouveeData: GrouveeGame[]): Promise<HltbGrouveeGame[]> => {
   const hltbGrouveeGames: HltbGrouveeGame[] = [];
-  for (const grouveeGame of grouveeData)
+  for (const grouveeGame of grouveeData) {
+    // Search by game name with non-alphanumeric characters removed
+    const name = grouveeGame.name.replace(/[\W]+/g, ' ');
+    
     hltbGrouveeGames.push({
       grouvee: grouveeGame,
-      hltb: await hltbService.search(grouveeGame.name),
+      hltb: await hltbService.search(name),
     });
+  }
   return hltbGrouveeGames;
 };
