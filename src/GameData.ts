@@ -1,5 +1,5 @@
-import parse from 'csv-parse/lib/sync';
 import { HowLongToBeatEntry, HowLongToBeatService } from 'howlongtobeat';
+const { parse } = window.require('csv-parse/sync');
 
 const hltbService = new HowLongToBeatService();
 hltbService.search('Hello');
