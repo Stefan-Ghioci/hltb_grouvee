@@ -8,6 +8,7 @@ const BrowserWindow = electron.BrowserWindow;
 let mainWindow;
 function createWindow() {
   mainWindow = new BrowserWindow({
+    autoHideMenuBar: true,
     minWidth: 1024,
     minHeight: 640,
     webPreferences: { webSecurity: false, contextIsolation: false, nodeIntegration: true },

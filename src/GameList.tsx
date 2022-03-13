@@ -1,6 +1,5 @@
 import { ColDef, ValueFormatterFunc } from 'ag-grid-community';
 import 'ag-grid-community/dist/styles/ag-grid.css';
-import 'ag-grid-enterprise';
 import { AgGridReact } from 'ag-grid-react';
 import { FunctionComponent } from 'react';
 import { HltbGrouveeGame } from './GameData';
